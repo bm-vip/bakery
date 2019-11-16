@@ -44,6 +44,6 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductEntity,Long> impl
 
     @Override
     public ProductEntity findByCode(String code) {
-        return option(()-> productRepository.findByCode(code)).orElse(new ProductEntity());
+        return productRepository.findByCode(code);
     }
 }

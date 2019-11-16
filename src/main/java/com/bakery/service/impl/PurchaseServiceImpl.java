@@ -34,7 +34,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 
     /**
-     * calculate total price and show detail of purchase
+     * calculate total price and prepare detail of purchase for customer
      * @param count
      * @param productId
      * @return ResultDto
@@ -52,7 +52,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         int[] packCounts = packsEntities.stream().mapToInt(PacksEntity::getPackCount).toArray();
         Map<Integer, Integer> packs = Utils.withdrawAmount(packCounts, count);
 
-        //prepare answer for custommer
+        //prepare answer for customer
         ResultDto resultDto = new ResultDto();
         List<BigDecimal> totlaAmount = new ArrayList<>();
         packs.forEach((key, value) -> {
