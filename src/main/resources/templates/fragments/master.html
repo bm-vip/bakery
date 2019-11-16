@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name='author' content='behrooz mohamadi, behrooz.mohamadi@gmail.com'>
+    <title th:text="#{siteName} + ' - ' + ${pageTitle}"></title>
+
+    <link rel="icon" type="image/ico" th:href="@{/images/favicon.png}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/font-awesome.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/nprogress.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/skins/green.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/custom.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap.dataTables.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap.datatable.responsive.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap.custom.css}"/>
+    <!--
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap-progressbar-3.3.4.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/jquery.mCustomScrollbar.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap-touchspin.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap-persiandatetimepicker.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap-theme.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap-tagsinput.css}"/>
+    -->
+    <script type="text/javascript" th:src="@{/js/lib/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/lib/bootstrap.min.js}"></script>
+    <th:block layout:fragment="header"></th:block>
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col hidden-print">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a th:href="@{/dashboard}" class="site_title"><img th:src="@{/images/favicon.png}"
+                                                                       style="width: 50px;"/> <span
+                            th:text="#{siteName}"></span></a>
+                </div>
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+                    <div class="profile_pic">
+                        <img th:src="@{/images/find_user.png}" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span th:text="#{welcome}"></span>:
+                        <h2 th:text="${fullName}"></h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+                <br/>
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3 th:text="#{public}"></h3>
+                        <ul class="nav side-menu">
+                            <li><a><i class="fa fa-edit"></i>
+                                <th:block th:text="#{baseInfo}"></th:block>
+                                <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a th:href="@{/productGroup}" th:text="#{productGroup}"></a></li>
+                                    <li><a th:href="@{/products}" th:text="#{products}"></a></li>
+                                    <li><a th:href="@{/packs}" th:text="#{packs}"></a></li>
+                                </ul>
+                            </li>
+                            <li><a><i class="fa fa-cubes"></i>
+                                <th:block th:text="#{orders}"></th:block>
+                                <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a th:href="@{/purchase}" th:text="#{purchase}"></a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" th:title="#{settings}">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" th:title="#{fullscreen}">
+                        <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" th:title="#{lock}">
+                        <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" th:title="#{exit}" th:href="@{/login}">
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                    </a>
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+        <!-- top navigation -->
+        <div class="top_nav hidden-print">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <img th:src="@{/images/find_user.png}" alt="">
+                                <th:block th:text="${fullName}"></th:block>
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="javascript:;" th:text="#{profile} "></a></li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <span class="badge bg-red pull-right">50%</span>
+                                        <span th:text="#{settings}"></span>
+                                    </a>
+                                </li>
+                                <li><a href="javascript:;" th:text="#{help}"></a></li>
+                                <li><a th:href="@{/login}"><i class="fa fa-sign-out pull-right"></i>
+                                    <th:block th:text="#{exit}"></th:block>
+                                </a></li>
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown">
+                            <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="fa fa-envelope-o"></i>
+                                <span class="badge bg-green">6</span>
+                            </a>
+                            <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                <li>
+                                    <a>
+                                        <span class="image"><img th:src="@{/images/find_user.png}"
+                                                                 alt="Profile Image"/></span>
+                                        <span>
+                          <span>مرتضی کریمی</span>
+                          <span class="time">3 دقیقه پیش</span>
+                        </span>
+                                        <span class="message">
+                          فیلمای فستیوال فیلمایی که اجرا شده یا راجع به لحظات مرده ایه که فیلمسازا میسازن. آنها جایی بودند که....
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img th:src="@{/images/find_user.png}"
+                                                                 alt="Profile Image"/></span>
+                                        <span>
+                          <span>مرتضی کریمی</span>
+                          <span class="time">3 دقیقه پیش</span>
+                        </span>
+                                        <span class="message">
+                          فیلمای فستیوال فیلمایی که اجرا شده یا راجع به لحظات مرده ایه که فیلمسازا میسازن. آنها جایی بودند که....
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img th:src="@{/images/find_user.png}"
+                                                                 alt="Profile Image"/></span>
+                                        <span>
+                          <span>مرتضی کریمی</span>
+                          <span class="time">3 دقیقه پیش</span>
+                        </span>
+                                        <span class="message">
+                          فیلمای فستیوال فیلمایی که اجرا شده یا راجع به لحظات مرده ایه که فیلمسازا میسازن. آنها جایی بودند که....
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="image"><img th:src="@{/images/find_user.png}"
+                                                                 alt="Profile Image"/></span>
+                                        <span>
+                          <span>مرتضی کریمی</span>
+                          <span class="time">3 دقیقه پیش</span>
+                        </span>
+                                        <span class="message">
+                          فیلمای فستیوال فیلمایی که اجرا شده یا راجع به لحظات مرده ایه که فیلمسازا میسازن. آنها جایی بودند که....
+                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <div class="text-center">
+                                        <a>
+                                            <strong>مشاهده تمام اعلان ها</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+        <!-- /header content -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3 th:text="${pageTitle}"></h3>
+                    </div>
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="search for...">
+                                <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div layout:fragment="content"></div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer class="hidden-print">
+            <div class="pull-left">
+                <th:block th:text="#{developAndDesignBy}"></th:block>
+                <a href="http://www.fokapars.com" th:text="#{siteName}"></a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- Alert  class={alert-danger,alert-warning,alert-info,alert-success}-->
+<div id="myAlert" class="alert fade in"
+     style="display: none; position: fixed; top: 10%; left: 2%; right: 70%; z-index: 2147483647;">
+    <button onclick="$('#myAlert').hide()" class="close">&times;</button>
+    <div class="alert-content"></div>
+</div>
+<!-- /. Alert -->
+</div>
+<script type="text/javascript" th:src="@{/js/lib/fastclick.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/nprogress.js}"></script>
+<script type="text/javascript" th:src="@{/js/messages/messages.en.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/jquery.cookie.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/jquery.blockUI.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/jalaali.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/DateUtils.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/jquery.validate.additional-methods.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/jquery.dataTables.1.10.16.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/bootstrap-dataTables.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/dataTables.responsive.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/common.js}"></script>
+<script type="text/javascript" th:src="@{/js/lib/core.js}"></script>
+<th:block layout:fragment="footer"></th:block>
+<script type="text/javascript" th:src="@{/js/lib/custom.min.js}"></script>
+</body>
+</html>

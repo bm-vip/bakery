@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/master}">
+
+<th:block layout:fragment="header">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap-progressbar-3.3.4.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/bootstrap-persiandatetimepicker.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/select2.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/lib/select2-bootstrap.css}"/>
+    <script type="text/javascript" th:src="@{/js/lib/select2.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/messages/select2.fa.js}"></script>
+    <style>
+        .panel_toolbox {
+            min-width: 0;
+        }
+    </style>
+</th:block>
+
+<th:block layout:fragment="content">
+    <input type="hidden" value="/purchase" id="requestMapping"/>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2 th:text="#{purchase} + ' ' + #{products}"></h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label th:text="#{products}"></label>
+                                <th:block
+                                        th:replace="fragments/select2 :: select2('3',#{products}, 'products', '/products/findAllSelect','{title:params.term}',false)"></th:block>
+                            </div>
+
+                            <div class="col-md-6 form-group">
+                                <label th:text="#{count}"></label>
+                                <input class="form-control" tabindex="3" type="number"
+                                       th:placeholder="#{count}" th:title="#{count}"
+                                       th:id="count"/>
+                            </div>
+                        </div>
+
+                        <div class="ln_solid"></div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button tabindex="5" type="submit" class="btn btn-info">
+                                    <i class="fa fa-save"></i>&nbsp;<span th:text="#{submit}"></span></button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2 th:text="#{result}"></h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a></li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <ul>
+                            <li>
+                                <label id="total-amount"></label>
+                                <ul id="purchase-detail"></ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+</th:block>
+
+<th:block layout:fragment="footer">
+    <script type="text/javascript" th:src="@{/js/script/purchase.js}"></script>
+</th:block>
+</html>
