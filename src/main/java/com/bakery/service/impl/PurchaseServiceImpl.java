@@ -33,6 +33,11 @@ public class PurchaseServiceImpl implements PurchaseService {
     PacksService packsService;
 
 
+    /**
+     * @param count
+     * @param productId
+     * @return ResultDto
+     */
     @Override
     public ResultDto calc(Integer count, Long productId) {
         ProductEntity productEntity = productService.findById(productId);
