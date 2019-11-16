@@ -34,6 +34,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 
     /**
+     * calculate total price and show detail of purchase
      * @param count
      * @param productId
      * @return ResultDto

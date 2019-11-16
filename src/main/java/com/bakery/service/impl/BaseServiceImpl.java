@@ -81,7 +81,7 @@ public abstract class BaseServiceImpl<T extends BaseEntity<ID>, ID extends Seria
 
     /**
      * @param entity
-     * @return after save or update return that record
+     * @return after save or update return that record from database
      */
     @Override
     public T save(T entity) {

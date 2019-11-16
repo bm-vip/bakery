@@ -38,6 +38,11 @@ public abstract class BaseController<T, ID extends Serializable> {
         this.service = service;
     }
 
+    /**
+     * expose findById service on http
+     * @param id
+     * @return return one record by id
+     */
     @RequestMapping(value = {"/findById"}, method = RequestMethod.GET)
     public ResponseEntity findById(@RequestParam ID id) {
         try {
@@ -48,6 +53,17 @@ public abstract class BaseController<T, ID extends Serializable> {
         }
     }
 
+    /**
+     * expose findAllTable service on http
+     * @param json
+     * @param start
+     * @param length
+     * @param dir
+     * @param col
+     * @param request
+     * @return This is make result of data in a Pageable object that way use for grid/datatable
+     * @throws IOException
+     */
     @RequestMapping(value = {"/findAllTable"}, method = RequestMethod.GET)
     public @ResponseBody
     PageDto findAllTable(@RequestParam("entity") String json,
@@ -63,6 +79,13 @@ public abstract class BaseController<T, ID extends Serializable> {
         return service.findAllTable(entity, pageable);
     }
 
+    /**
+     * expose findAllSelect service on http
+     * @param json
+     * @param page
+     * @return This is make result of Select2Dto in a Pageable object that way use for dropDown
+     * @throws IOException
+     */
     @RequestMapping(value = {"/findAllSelect"}, method = RequestMethod.GET)
     public @ResponseBody
     PageDto findAllSelect(@RequestParam("entity") String json,
@@ -72,6 +95,11 @@ public abstract class BaseController<T, ID extends Serializable> {
         return service.findAllSelect(entity, pageable);
     }
 
+    /**
+     * expose findAll service on http
+     * @param json
+     * @return return all data
+     */
     @RequestMapping(value = {"/findAll"}, method = RequestMethod.GET)
     public ResponseEntity findAll(@RequestParam("entity") String json) {
         try {
@@ -83,6 +111,11 @@ public abstract class BaseController<T, ID extends Serializable> {
         }
     }
 
+    /**
+     * expose count service on http
+     * @param json
+     * @return count all data
+     */
     @RequestMapping(value = {"/countAll"}, method = RequestMethod.GET)
     public ResponseEntity countAll(@RequestParam("entity") String json) {
         try {
@@ -94,6 +127,11 @@ public abstract class BaseController<T, ID extends Serializable> {
         }
     }
 
+    /**
+     * expose delete service on http
+     * @param id
+     * @return
+     */
     @RequestMapping(value = {"/deleteById"}, method = RequestMethod.POST)
     public ResponseEntity deleteById(@RequestParam("id") ID id) {
         try {
@@ -105,6 +143,11 @@ public abstract class BaseController<T, ID extends Serializable> {
         }
     }
 
+    /**
+     * expose save service on http
+     * @param json
+     * @return after save or update return that record from database
+     */
     @RequestMapping(value = {"/save"}, method = RequestMethod.POST)
     public ResponseEntity save(@RequestParam("entity") String json) {
         try {

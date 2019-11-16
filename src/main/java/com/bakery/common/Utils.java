@@ -9,6 +9,11 @@ public class Utils {
         return list;
     }
 
+    /**
+     * @param denom
+     * @param targetAmount
+     * @return find minimum of change amount
+     */
     public static int minChange(int[] denom, int targetAmount) {
 
         int actualAmount;
@@ -33,6 +38,13 @@ public class Utils {
         return table[m-1][n-1];
 
     }
+
+    /**
+     * calculate how many packets can be match to the value
+     * @param denom
+     * @param expectedAmount
+     * @return
+     */
     public static Map<Integer, Integer> withdrawAmount(int[] denom,int expectedAmount)
     {
         Map<Integer, Integer> denominations = new HashMap<>();

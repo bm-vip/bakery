@@ -21,6 +21,12 @@ public class PurchaseController {
     @Autowired
     PurchaseService purchaseService;
 
+    /**
+     * expose calc service on http
+     * @param count
+     * @param productId
+     * @return
+     */
     @GetMapping(value = {"/calc"})
     public ResponseEntity getTopInfoWarning(@RequestParam Integer count, @RequestParam Long productId) {
         try {
