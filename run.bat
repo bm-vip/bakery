@@ -1,0 +1,1 @@
+java -jar target/bakery-1.0.0-SNAPSHOT.jar

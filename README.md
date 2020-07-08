@@ -1,8 +1,9 @@
-# bakery Web Application
-
-1. mvn clean
-2. mvn clean install
-3. Go to the target folder
-4. java -jar bakery-0.0.1-SNAPSHOT.jar
-
-- http://localhost:8090
+# Bakery Web Application
+Bakery Web Application is a Spring boot application that created for x company.
+## Installation
+```
+1. install.bat
+2. run.bat
+```
+## Usage
+[Open Link](http://localhost:8090)
